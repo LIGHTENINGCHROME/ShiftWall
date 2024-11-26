@@ -66,7 +66,7 @@ def envCheck(key,n,m):
             if m == 0:
                 if n==0:
                     print("here")
-                    
+                    eel.status_ok(1)
                     if check_var==1:
                         print("hi")
                         eel.resetDialog()
