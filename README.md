@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="./favicon.ico" width="128" height="128" style="display: block; margin: 0 auto"/>
+    <img src="./Screenshot/favicon.ico" width="128" height="128" style="display: block; margin: 0 auto"/>
     <h1>ShiftWall</h1>
     <p>An UNOFFICIAL Wallpaper Client Application For Unsplash</p>
 </div>
