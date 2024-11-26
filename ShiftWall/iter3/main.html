@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ShiftWall</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="./main.css">
+<link rel="icon" type="image/x-icon" href="./favicon.ico">
+</head>
+<body>
+
+<div id="lc" class="slideshow-container">
+  
+<div class="mySlides fade">
+  <img id="Im" class="Im" src="./load/low/wall.png" style="width:100%">
+  <iframe
+    src="./load/aut/author.htm"
+    id="fram"
+    class="back fade"
+    scrolling="no">
+  </iframe>
+</div>
+<div class="mySlides fade">
+  <img class="Im" src="./load/low/wall0.png" style="width:100%">
+  <iframe
+    src="./load/aut/author0.htm"
+    id="fram"
+    class="back"
+    scrolling="no">
+  </iframe>
+</div>
+<div class="mySlides fade">
+  <img class="Im" src="./load/low/wall1.png" style="width:100%">
+  <iframe
+    src="./load/aut/author1.htm"
+    id="fram"
+    class="back"
+    scrolling="no">
+  </iframe>
+</div>
+<div class="mySlides fade">
+  <img class="Im" src="./load/low/wall2.png" style="width:100%">
+  <iframe
+    src="./load/aut/author2.htm"
+    id="fram"
+    class="back"
+    scrolling="no">
+  </iframe>
+</div>
+<div class="mySlides fade">
+  <img class="Im" src="./load/low/wall3.png" style="width:100%">
+  <iframe
+    src="./load/aut/author3.htm"
+    id="fram"
+    class="back"
+    scrolling="no">
+  </iframe>
+</div>
+<div class="mySlides fade">
+  <img class="Im" src="./load/low/wall4.png" style="width:100%">
+  <iframe
+    src="./load/aut/author4.htm"
+    id="fram"
+    class="back"
+    scrolling="no">
+  </iframe>
+</div>
+<div class="mySlides fade">
+  <img class="Im" src="./load/low/wall5.png" style="width:100%">
+  <iframe
+    src="./load/aut/author5.htm"
+    id="fram"
+    class="back"
+    scrolling="no">
+  </iframe>
+</div>
+<div class="mySlides fade">
+  <img class="Im" src="./load/low/wall6.png" style="width:100%">
+  <iframe
+    src="./load/aut/author6.htm"
+    id="fram"
+    class="back"
+    scrolling="no">
+  </iframe>
+</div>
+<div class="mySlides fade">
+  <img class="Im" src="./load/low/wall7.png" style="width:100%">
+  <iframe
+    src="./load/aut/author7.htm"
+    id="fram"
+    class="back"
+    scrolling="no">
+  </iframe>
+</div>
+<div class="mySlides fade">
+  <img class="Im" src="./load/low/wall8.png" style="width:100%">
+  <iframe
+    src="./load/aut/author8.htm"
+    id="fram"
+    class="back"
+    scrolling="no">
+  </iframe>
+</div>
+<div class="mySlides fade">
+  <img class="Im" src="./load/low/wall9.png" style="width:100%">
+  <iframe
+    src="./load/aut/author9.htm"
+    id="fram"
+    class="back"
+    scrolling="no">
+  </iframe>
+</div>
+</div>
+
+
+<div class="back" id="background">
+  <div id="vis">
+    <h1 id="test">WELCOME</h1>
+    <button id="click-left" onclick="plusSlides(-1)" ><img class="ar-img" src="./arrow-l.svg"></button>
+    <button id="click-right" onclick="plusSlides(1)" ><img class="ar-img" src="./arrow-r.svg"></button>
+    <button id="new" onclick="new_wall()" >NEW WALLPAPER</button>
+    <button id="set" onclick="set()" >SET AS WALLPAPER</button>
+    <button id="credit" onclick="show_credit()">CREDITS</button>
+    <button id="options" onclick="show_menu()" ><img src="./options.svg"></button>
+    <button class="back" id="closer" aria-label="Close Account Info Modal Box" onclick="closeCredit()">×</button>
+  </div> 
+</div>
+<div class="menu fade" id="menu">
+  <button id="click-back" onclick="hide_menu()" ><img class="back-img" src="./arrow-l.svg"></button>
+  <button id="click-apply" onclick="hide_menu()" >APPLY</button>
+  <button id="click-reload" onclick="new_wall2()" >RELOAD</button>
+  <div class="wrapper">
+    <div class="item1">WALLPAPER QUALITY</div>
+    <div class="item2">AUTO WALLPAPER SETTING</div>
+    <div class="item3">INTERVAL</div>
+    <div class="item4">WALLPAPER SOURCE</div>
+    <div class="item5">CONTENT FILTER</div>
+    <div class="item6">
+      <div class="dropdown">
+        <button id="resText" class="dropbtn"></button>
+        <div class="dropdown-content">
+          <a onclick="resolution(0)">RAW</a>
+          <a onclick="resolution(1)">FULL</a>
+          <a onclick="resolution(2)">REGULAR</a>
+        </div>
+      </div>
+    </div>
+    <div class="item7">
+      <div class="dropdown">
+        <button id="intervalText" class="dropbtn"></button>
+        <div class="dropdown-content">
+          <a onclick="auto(0)">15 MINUTES</a>
+          <a onclick="auto(1)">30 MINUTES</a>
+          <a onclick="auto(2)">1 HOUR</a>
+          <a onclick="auto(3)">3 HOURS</a>
+          <a onclick="auto(4)">6 HOURS</a>
+          <a onclick="auto(5)">12 HOURS</a>
+          <a onclick="auto(6)">24 HOURS</a>
+          <a onclick="auto(7)">48 HOURS</a>
+          <a onclick="auto(8)">1 WEEK</a>
+          <a onclick="auto(9)">NEVER</a>
+        </div>
+      </div>
+    </div>
+    <div class="item8">
+      <div class="dropdown">
+        <button id="queryText" class="dropbtn"></button>
+        <div class="dropdown-content">
+          <a onclick="source(0)">FEATURED</a>
+          <a>
+            <input id="custom" placeholder="CUSTOM">
+            <button id="source_apply" onclick="source(1)">APPLY</button> 
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="item9">
+      <div class="dropdown">
+        <button id="conText" class="dropbtn"></button>
+        <div class="dropdown-content">
+          <a onclick="con_filter(0)">HIGH</a>
+          <a onclick="con_filter(1)">LOW</a>
+        </div>
+      </div>
+    </div>
+    <div class="item10">NEW WALLPAPER ON STARTUP</div>
+    <div class="item11">
+      <div class="dropdown">
+        <button id="startText" class="dropbtn"></button>
+        <div class="dropdown-content">
+          <a onclick="start_wall(0)">NEVER</a>
+          <a onclick="start_wall(1)">ON</a>
+        </div>
+      </div>
+    </div>
+    <div class="item12">CLEAR ALL WALLPAPER</div>
+
+    <div class="item13">
+      <button id="click-remove" class="dropbtn" onclick="confirm(0)">DELETE</button>
+    </div>
+    <div class="item14">GET ALL WALLPAPERS IN HIGH RESOLUTION</div>
+
+    <div class="item15">
+      <button id="click-remove" class="dropbtn" onclick="confirm(1)">GET</button>
+    </div>
+    
+    <div id="confirmation">
+      <div id="closeX" onclick="confirm_hide(0)">x</div> 
+      <div id="sure">ARE YOU SURE ?</div>
+      <div id="info">THIS ACTION WILL DELETE ALL YOUR PREVIOUS WALLPAPERS!</div>
+      <div id="buttons">
+        <div id="yes" onclick="confirm_hide(1)">YES</div>
+        <div id="no" onclick="confirm_hide(0)">NO</div>  
+        <div id="full" onclick="confirm_res_hide(1)">FULL</div>
+        <div id="raw" onclick="confirm_res_hide(0)">RAW</div> 
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<div class="startWindow" >
+  <div class="license"><embed id="content" src="LICENSE.txt" height="500" width="500"></div>
+    <div id="next1" onclick="next(0)">ACCEPT & CONTINUE</div>
+    <div id="next2" onclick="get_api()">ACCEPT & CONTINUE</div>
+  <div class="api_sect">
+    <div id="key_field">
+    <input id="key" placeholder="PLEASE ENTER YOUR API KEY !">
+    </div>
+
+    <p id="link_api">HERE'S HOW TO GET ONE ><a href="https://www.educative.io/answers/how-to-get-unsplash-api-keys" target="_blank"> GET API KEY!</a>
+      <br>
+      <br>
+      <br>NOTE! FIRST TIME SETUP WILL REQUIRE INTERNET CONNECTION</p>
+
+    <div id="confirmationReset">
+      <div id="ResetInfo">PLEASE RESTART THE APPLICATION IT WILL AUTOMATICALLY IN 10 SECONDS!</div>
+      <div id="resetOK"><div id="timed_reset" onclick="destroyer()">OK</div></div>
+    </div>
+  </div>
+</div>
+<div id="loading"><img class="loading" src="./loading.gif"></div>
+
+<script type="text/javascript" src="/eel.js"></script> 
+<script src="./main.js"></script>
+
+</body>
+</html> 
