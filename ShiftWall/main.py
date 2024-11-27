@@ -23,6 +23,19 @@ get_var=0
 client_id =''
 check_var=0
 
+path_a = f"{os.path.dirname(os.path.abspath(__file__))}\\iter3"
+path_b = f"{os.path.dirname(os.path.abspath(__file__))}/iter3/load"
+path_c = f"{os.path.dirname(os.path.abspath(__file__))}\iter3\load\low"
+path_d = f"{os.path.dirname(os.path.abspath(__file__))}\iter3\load\high"
+path_e = f"{os.path.dirname(os.path.abspath(__file__))}\iter3\load\\aut"
+path_f = f"{os.path.dirname(os.path.abspath(__file__))}\iter3\load\\aut_page"
+path_g = f"{os.path.dirname(os.path.abspath(__file__))}\iter3\load\\img_res_link"
+
+path_x_raw = f"{os.path.dirname(os.path.abspath(__file__))}"
+path_x_processed = path_x_raw.split("\_internal", 1)
+path_x = path_x_processed[0]
+print(path_x)
+
 def get_key():
     global get_var,client_id
     print(get_var)
@@ -33,7 +46,7 @@ def get_key():
 @eel.expose
 def env_get():
     try:
-        with open(f"{os.path.dirname(os.path.abspath(__file__))}/.env","r") as doc:
+        with open(f"{path_x}/.env","r") as doc:
             doc.readline()
             doc.close()
     except FileNotFoundError:
@@ -44,7 +57,7 @@ env_get()
 
 @eel.expose
 def saveEnv(key):
-    save=open(f"{os.path.dirname(os.path.abspath(__file__))}/.env","w")
+    save=open(f"{path_x}/.env","w")
     save.write(f"api_key='{key}'")
     save.close()
     envCheck(key,0,0)
@@ -84,14 +97,6 @@ def check_internet():
         eel.new_wall2()
     except urllib.error.URLError:
         eel.notify_internet()
-
-path_a = f"{os.path.dirname(os.path.abspath(__file__))}\\iter3"
-path_b = f"{os.path.dirname(os.path.abspath(__file__))}/iter3/load"
-path_c = f"{os.path.dirname(os.path.abspath(__file__))}\iter3\load\low"
-path_d = f"{os.path.dirname(os.path.abspath(__file__))}\iter3\load\high"
-path_e = f"{os.path.dirname(os.path.abspath(__file__))}\iter3\load\\aut"
-path_f = f"{os.path.dirname(os.path.abspath(__file__))}\iter3\load\\aut_page"
-path_g = f"{os.path.dirname(os.path.abspath(__file__))}\iter3\load\\img_res_link"
 
 def checkFolder():
     path_list = [path_a,
@@ -187,7 +192,8 @@ def Img():
         urls.writelines(f"{res}\n{img_url["raw"]}\n{img_url["full"]}")
         urls.close()
     
-    except KeyError:
+    except Exception as e:
+        print(e)
         raise (ValueError)
 
 def Red():
