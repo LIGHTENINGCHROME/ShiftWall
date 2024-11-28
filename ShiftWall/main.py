@@ -19,6 +19,13 @@ import subprocess
 
 eel.init("iter3")
 
+try:
+    print("0" + str(sys.argv[0]))
+    print("1:" + str(sys.argv[1]))
+except IndexError:
+    print("hola")
+
+
 get_var=0
 client_id =''
 check_var=0
@@ -50,7 +57,10 @@ def env_get():
             doc.readline()
             doc.close()
     except FileNotFoundError:
-        eel.status_ok(0)
+        try:
+            eel.status_ok(0)
+        except AttributeError:
+            print("adding wallpaper")
 
 env_get()
 
@@ -189,7 +199,7 @@ def Img():
 
         #saving urls
         urls = open(f"{path_g}/img_resget.txt", "w")
-        urls.writelines(f"{res}\n{img_url["raw"]}\n{img_url["full"]}")
+        urls.writelines(f'{res}\n{img_url["raw"]}\n{img_url["full"]}')
         urls.close()
     
     except Exception as e:
@@ -489,23 +499,30 @@ def con_startup(val):
         doc.writelines(str(val))
         doc.close()
 
-    with open(f"{path_b}/start_list","w") as doc:
+    with open(f"{path_b}/start_list.txt","w") as doc:
         doc.writelines(start_list[val])
         doc.close()
 
 @eel.expose
 def con_startup_get():
+    start_list = ["never","on"]
     try:
-        with open(f"{path_b}/start_list","r") as doc:
+        with open(f"{path_b}/start_list.txt","r") as doc:
             start=doc.readline()
             doc.close()
-            return start
     except FileNotFoundError:
-        with open(f"{path_b}/start_list","w") as doc:
+        with open(f"{path_b}/start_list.txt","w") as doc:
             doc.writelines("never")
             start="never"
             doc.close()
-            return start
+    finally:
+        print(start)
+        if start==start_list[0]:
+            get_startup(0,0)
+        if start==start_list[1]:
+            get_startup(0,1)
+        return start
+
         
 
         
@@ -577,83 +594,96 @@ def start_load(operation):
 
         global get_var,client_id
 
-        get_key()
-        get_var=1
+        try:
 
-        progressbar.set(0.1)
-        
-        #get resolution
-        res = res_get()
+            get_key()
+            get_var=1
 
-        #get sources
-        query = query_get()
+            progressbar.set(0.1)
+            
+            #get resolution
+            res = res_get()
 
-        #get filter
-        content_filter = con_fil_get()
+            #get sources
+            query = query_get()
 
-        
-        progressbar.set(0.2)
+            #get filter
+            content_filter = con_fil_get()
 
-
-        print("res: "+res+"\nsource: "+query+"\nfilter: "+content_filter)
-
-    #path setting for rearranging and rearranging
-        rearrange(path_c,1)
-        rearrange(path_d,1)
-        rearrange(path_e,2)
-
-        
-        progressbar.set(0.4)
+            
+            progressbar.set(0.2)
 
 
-        #url and data request
-        url = f"https://api.unsplash.com/photos/random?query={query}&orientation=landscape&content_filter={content_filter}&client_id={client_id}"
-        data = requests.get(url).json()
-        img_author = (data["user"]["name"])#author name
-        
-        
-        progressbar.set(0.6)
-        
-        
-        img_data_low = requests.get(data["urls"]["regular"]).content
-        img_low = Image.open(io.BytesIO(img_data_low))
-        y_low = img_low.save(f"{path_c}/wall.png")#save low res image   
-        img_data_high = requests.get(data["urls"][res]).content
-        img_high = Image.open(io.BytesIO(img_data_high))
-        y = img_high.save(f"{path_d}/wall.png")#save high res image 
-        
-        
-        progressbar.set(0.8)
-        
-        
-        set_wallpaper(0,1)
+            print("res: "+res+"\nsource: "+query+"\nfilter: "+content_filter)
 
-        #saving authors name
-        ptr = 1
+        #path setting for rearranging and rearranging
+            rearrange(path_c,1)
+            rearrange(path_d,1)
+            rearrange(path_e,2)
 
-        auth = open(f"{path_b}/author_temp.htm","r")
-        content=(auth.readlines())
-        auth.close() 
-
-        print(content)
-        
-
-        progressbar.set(0.9)
+            
+            progressbar.set(0.4)
 
 
-        auth = open(f"{path_e}/author.htm","a")
-        for line in content:
-            if ptr == 32:
-                auth.writelines(f"<h1>{img_author}</h1>\n")
-            else:
-                auth.writelines(line)
-            ptr +=1
+            #url and data request
+            url = f"https://api.unsplash.com/photos/random?query={query}&orientation=landscape&content_filter={content_filter}&client_id={client_id}"
+            data = requests.get(url).json()
+            img_author = (data["user"]["name"])#author name
+            img_url= data["urls"]#img urls
+            
+            
+            progressbar.set(0.6)
+            
+            
+            img_data_low = requests.get(data["urls"]["regular"]).content
+            img_low = Image.open(io.BytesIO(img_data_low))
+            y_low = img_low.save(f"{path_c}/wall.png")#save low res image   
+            img_data_high = requests.get(data["urls"][res]).content
+            img_high = Image.open(io.BytesIO(img_data_high))
+            y = img_high.save(f"{path_d}/wall.png")#save high res image 
+            
+            
+            progressbar.set(0.8)
+            
+            
+            set_wallpaper(0,1)
 
-        auth.close()
+            #saving authors name
+            ptr = 1
 
-        progressbar.set(1)
+            auth = open(f"{path_b}/author_temp.htm","r")
+            content=(auth.readlines())
+            auth.close() 
 
-        root.destroy()
+            print(content)
+            
+
+            progressbar.set(0.9)
+
+
+            auth = open(f"{path_e}/author.htm","a")
+            for line in content:
+                if ptr == 32:
+                    auth.writelines(f"<h1>{img_author}</h1>\n")
+                else:
+                    auth.writelines(line)
+                ptr +=1
+
+            auth.close()
+
+            #saving urls
+            urls = open(f"{path_g}/img_resget.txt", "w")
+            urls.writelines(f'{res}\n{img_url["raw"]}\n{img_url["full"]}')
+            urls.close()
+
+            progressbar.set(1)
+
+            root.destroy()
+
+        except Exception as e:
+            label_center.configure(text = "Error While Adding Wallpaper..")
+            destroyer()
+
     
     def destroyer():
         time.sleep(5)
@@ -685,43 +715,19 @@ def start_load(operation):
 def get_startup(common,condition):
     start_folder = shell.SHGetFolderPath(0, (shellcon.CSIDL_STARTUP, shellcon.CSIDL_COMMON_STARTUP)[common], None, 0)
     if bool(condition):
-        path_x =os.path.normpath(os.path.dirname((os.path.abspath(__file__))) + os.sep + os.pardir)
-        path_y = os.path.dirname((os.path.abspath(__file__)))
-
-        with open(f"{path_a}/start.bat","r") as doc:
-            code = doc.readlines()
-            doc.close()
-        ptr = 0
-        code_li = []
-        for line in code:
-            if ptr == 2:
-                code_li.append(f'"{path_x}/ShiftWall.exe" "launch"\n')
-            else:
-                code_li.append(line)
-            ptr += 1
-        with open(f"{path_y}/start.bat","w") as doc:
-            code = doc.writelines(code_li)
-            doc.close()
-        
-        with open(f"{path_a}/hide.vbs","r") as doc:
-            code_vbs = doc.readlines()
-            doc.close()
-
-        with open(f"{path_y}/hide.vbs","w") as doc:
-            doc.writelines(code_vbs)
-            doc.close()
-        
-        path = (fr"{start_folder}\shortcut.lnk")  #This is where the shortcut will be created
-        target = (fr"{path_y}\hide.vbs")  # directory to which the shortcut is created
+       
+        path = (fr"{start_folder}\ShiftWall.lnk")  #This is where the shortcut will be created
+        target = (fr"{path_x}\ShiftWall.exe")  # directory to which the shortcut is created
 
         shelll = Dispatch('WScript.Shell')
         shortcut = shelll.CreateShortCut(path)
         shortcut.Targetpath = f"{target}"
-        shortcut.Workingdirectory = f"{path_y}"
+        shortcut.Arguments = 'launch'
+        shortcut.Workingdirectory = f"{path_x}"
         shortcut.save()
     else:
         try:
-            os.remove(fr"{start_folder}\shortcut.lnk")
+            os.remove(f"{start_folder}\ShiftWall.lnk")
         except FileNotFoundError :
             print()
 
